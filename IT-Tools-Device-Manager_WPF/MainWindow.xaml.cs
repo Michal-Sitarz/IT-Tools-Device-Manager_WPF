@@ -21,9 +21,23 @@ namespace ITTools_DeviceManager_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        private enum LockStatus { Locked, Unlocked }
+        private BitmapImage IconLock;
+        private BitmapImage IconUnlock;
+        private readonly Dictionary<string, string> IconPath = new Dictionary<string, string>()
+        {
+            {"Locked","Icons/64_lock_white.png"},
+            {"Unlocked","Icons/64_unlock_orange.png"}
+        };
+
+
         public MainWindow()
         {
             InitializeComponent();
+
+            IconLock = new BitmapImage(new Uri(IconPath["Locked"], UriKind.Relative));
+            IconUnlock = new BitmapImage(new Uri(IconPath["Unlocked"], UriKind.Relative));
+
             populateDataGrid();
             lockDataGridByDefault();
 
@@ -49,22 +63,25 @@ namespace ITTools_DeviceManager_WPF
         private void lockDataGridByDefault()
         {
             dgMain.IsReadOnly = true;
-            imgIcon_EditLockUnlock.Source = new BitmapImage(new Uri("Icons/64_lock.png", UriKind.Relative));
+            imgIcon_EditLockUnlock.Source = new BitmapImage(new Uri(IconPath["Locked"], UriKind.Relative));
+            lblLockStatus.Content = LockStatus.Locked;
         }
 
-        private void btn_SwitchEditing_Click(object sender, RoutedEventArgs e)
+        private void gridIcon_EditLockUnlock_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (dgMain.IsReadOnly)
             {
                 // if locked, then unlock it
                 dgMain.IsReadOnly = false;
-                imgIcon_EditLockUnlock.Source = new BitmapImage(new Uri("Icons/64_unlock.png", UriKind.Relative));
+                imgIcon_EditLockUnlock.Source = IconUnlock;
+                lblLockStatus.Content = LockStatus.Unlocked;
             }
             else
             {
                 // if unlocked, then lock it
                 dgMain.IsReadOnly = true;
-                imgIcon_EditLockUnlock.Source = new BitmapImage(new Uri("Icons/64_lock.png", UriKind.Relative));
+                imgIcon_EditLockUnlock.Source = IconLock;
+                lblLockStatus.Content = LockStatus.Locked;
             }
         }
     }

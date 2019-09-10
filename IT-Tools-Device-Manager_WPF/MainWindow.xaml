@@ -20,34 +20,35 @@
         <DataGrid x:Name="dgMain"
                   Width="Auto"
                   Height="Auto"
-                  Margin="30, 30, 30, 60" />
+                  Margin="30, 30, 30, 40" />
 
         <Grid VerticalAlignment="Bottom"
               HorizontalAlignment="Left"
               Margin="5"
-              Width="auto">
+              Width="auto"
+              MouseDown="gridIcon_EditLockUnlock_MouseDown">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
-
-            <Label Grid.Column="0"
-                   x:Name="lblEditing"
-                   Content="Lock/Unlock Editing"
+            
+            <Label x:Name="lblEditing"
+                   Grid.Column="0"
+                   Content="Editing:"
                    FontSize="12"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left" />
 
-            <Button x:Name="btn_SwitchEditIcon"
-                    Grid.Column="2"
-                    Click="btn_SwitchEditing_Click">
-                <Image x:Name="imgIcon_EditLockUnlock"
-                       Height="20"
-                       Width="24"
-                       Stretch="Fill" />
-            </Button>
+            <Image x:Name="imgIcon_EditLockUnlock"
+                   Grid.Column="1"
+                   Height="20"
+                   Width="24"
+                   Stretch="Fill"
+                   />
+            <Label x:Name="lblLockStatus"
+                   Grid.Column="2" />
 
         </Grid>
 
