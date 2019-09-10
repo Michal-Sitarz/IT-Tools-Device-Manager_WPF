@@ -32,7 +32,6 @@ namespace ITTools_DeviceManager_WPF
         private void populateDataGrid()
         {
 
-
             using (var db = new DevicesDbContext())
             {
                 var devices = new List<Device>();
@@ -50,17 +49,23 @@ namespace ITTools_DeviceManager_WPF
         private void lockDataGridByDefault()
         {
             dgMain.IsReadOnly = true;
-            checkboxEditing.IsChecked = false;
+            imgIcon_EditLockUnlock.Source = new BitmapImage(new Uri("Icons/64_lock.png", UriKind.Relative));
         }
 
-        private void checkboxEditing_Checked(object sender, RoutedEventArgs e)
+        private void btn_SwitchEditing_Click(object sender, RoutedEventArgs e)
         {
-            dgMain.IsReadOnly = false;
-        }
-
-        private void checkboxEditing_Unchecked(object sender, RoutedEventArgs e)
-        {
-            dgMain.IsReadOnly = true;
+            if (dgMain.IsReadOnly)
+            {
+                // if locked, then unlock it
+                dgMain.IsReadOnly = false;
+                imgIcon_EditLockUnlock.Source = new BitmapImage(new Uri("Icons/64_unlock.png", UriKind.Relative));
+            }
+            else
+            {
+                // if unlocked, then lock it
+                dgMain.IsReadOnly = true;
+                imgIcon_EditLockUnlock.Source = new BitmapImage(new Uri("Icons/64_lock.png", UriKind.Relative));
+            }
         }
     }
 }

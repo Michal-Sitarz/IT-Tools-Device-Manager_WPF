@@ -14,8 +14,9 @@
     <Grid Background="DimGray"
           Height="Auto"
           Width="Auto">
-        
-        <!-- Use MainWindow() constructor to setup locked/unlocked status of DataGrid's editing capabilities -->
+
+        <!-- Use lockDataGridByDefault() method in the MainWindow() constructor 
+             to setup locked/unlocked status of DataGrid's editing capabilities -->
         <DataGrid x:Name="dgMain"
                   Width="Auto"
                   Height="Auto"
@@ -34,19 +35,19 @@
 
             <Label Grid.Column="0"
                    x:Name="lblEditing"
-                   Content="Editing"
+                   Content="Lock/Unlock Editing"
                    FontSize="12"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left" />
-            <CheckBox x:Name="checkboxEditing"
-                      Grid.Column="1"
-                      VerticalAlignment="Center"
-                      Checked="checkboxEditing_Checked"
-                      Unchecked="checkboxEditing_Unchecked" />
-            <!--
-            <ToggleButton Grid.Column="2" 
-                />
-            -->
+
+            <Button x:Name="btn_SwitchEditIcon"
+                    Grid.Column="2"
+                    Click="btn_SwitchEditing_Click">
+                <Image x:Name="imgIcon_EditLockUnlock"
+                       Height="20"
+                       Width="24"
+                       Stretch="Fill" />
+            </Button>
 
         </Grid>
 
