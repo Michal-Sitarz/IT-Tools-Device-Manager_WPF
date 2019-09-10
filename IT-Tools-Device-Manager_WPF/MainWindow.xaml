@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ITTools_DeviceManager_WPF"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
         Title="IT Device Manager"
         Height="720"
@@ -11,51 +12,91 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize">
 
-    <Grid Background="DimGray"
-          Height="Auto"
+    <Grid Height="Auto"
           Width="Auto">
+        <TabControl Background="DimGray">
 
-        <!-- Use lockDataGridByDefault() method in the MainWindow() constructor 
-             to setup locked/unlocked status of DataGrid's editing capabilities -->
-        <DataGrid x:Name="dgMain"
-                  Width="Auto"
-                  Height="Auto"
-                  Margin="30, 30, 30, 40" />
+            <!-- Tab: Show All -->
+            <TabItem Header="[=] Show All">
+                <Grid>
+                    <!-- Use lockDataGridByDefault() method in the MainWindow() constructor 
+                         to setup locked/unlocked status of DataGrid's editing capabilities -->
+                    <DataGrid x:Name="dgMain"
+                              Width="Auto"
+                              Height="Auto"
+                              Margin="30, 30, 30, 45" />
 
-        <Grid VerticalAlignment="Bottom"
-              HorizontalAlignment="Left"
-              Margin="5"
-              Width="auto"
-              MouseDown="gridIcon_EditLockUnlock_MouseDown">
+                    <Grid VerticalAlignment="Bottom"
+                          HorizontalAlignment="Left"
+                          Margin="5"
+                          Width="auto"
+                          MouseDown="gridIcon_EditLockUnlock_MouseDown">
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="2*" />
-            </Grid.ColumnDefinitions>
-            
-            <Label x:Name="lblEditing"
-                   Grid.Column="0"
-                   Content="Editing:"
-                   FontSize="12"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Left" />
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
 
-            <Image x:Name="imgIcon_EditLockUnlock"
-                   Grid.Column="1"
-                   Height="20"
-                   Width="24"
-                   Stretch="Fill"
-                   />
-            <Label x:Name="lblLockStatus"
-                   Grid.Column="2" />
+                        <Label x:Name="lblEditing"
+                               Grid.Column="0"
+                               Content="Editing:"
+                               FontSize="12"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left" />
 
-        </Grid>
+                        <Image x:Name="imgIcon_EditLockUnlock"
+                               Grid.Column="1"
+                               Height="20"
+                               Width="24"
+                               Stretch="Fill" />
+                        <Label x:Name="lblLockStatus"
+                               Grid.Column="2" />
 
-        <Label x:Name="lblRowCount"
-               VerticalAlignment="Bottom"
-               HorizontalAlignment="Right"
-               Margin="5" />
+                    </Grid>
 
+                    <Label x:Name="lblRowCount"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Right"
+                           Margin="5" />
+                </Grid>
+            </TabItem>
+
+            <!-- Tab: Graphs -->
+            <TabItem Header="[~] Graphs"
+                     Selector.Selected="OnGraphTabSelected">
+                <Grid>
+                    <StackPanel>
+                        <Label Content="Number of:" />
+                        <Separator Background="White"
+                                   Margin="0,0,1000,0" />
+                        <Label Content="Laptops/Notebooks:" />
+                        <Label x:Name="lblNumberOfLaptops"
+                               Content="00" />
+
+                        <Label Content="PCs/Desktops:" />
+                        <Label x:Name="lblNumberOfDesktops"
+                               Content="00" />
+
+                    </StackPanel>
+
+                </Grid>
+            </TabItem>
+
+            <!-- Tab: Add New -->
+            <TabItem Header="[+] Add New">
+                <Grid>
+
+                </Grid>
+            </TabItem>
+
+            <!-- Tab: Settings -->
+            <TabItem Header="[#] Settings">
+                <Grid>
+
+                </Grid>
+            </TabItem>
+
+        </TabControl>
     </Grid>
 </Window>

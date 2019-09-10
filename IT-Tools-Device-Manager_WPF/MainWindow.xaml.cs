@@ -29,6 +29,7 @@ namespace ITTools_DeviceManager_WPF
             {"Locked","Icons/64_lock_white.png"},
             {"Unlocked","Icons/64_unlock_orange.png"}
         };
+        private List<Device> devices = new List<Device>();
 
 
         public MainWindow()
@@ -43,12 +44,21 @@ namespace ITTools_DeviceManager_WPF
 
         }
 
+        // populate graphs, when "Graph" tab is selected
+        private void OnGraphTabSelected(object sender, RoutedEventArgs e)
+        {
+            (int desktopsCount, int notebooksCount) = StatsGenerator.CountDeviceTypes(devices);
+
+            lblNumberOfDesktops.Content = desktopsCount;
+            lblNumberOfLaptops.Content = notebooksCount;
+
+        }
+
         private void populateDataGrid()
         {
 
             using (var db = new DevicesDbContext())
             {
-                var devices = new List<Device>();
                 foreach (Device d in db.Device)
                 {
                     devices.Add(d);
