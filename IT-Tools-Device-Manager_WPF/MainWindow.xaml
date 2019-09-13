@@ -11,20 +11,26 @@
         Width="1280"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize">
+    
 
     <Grid Height="Auto"
           Width="Auto">
         <TabControl Background="DimGray">
 
             <!-- Tab: Show All -->
-            <TabItem Header="[=] Show All">
+            <TabItem Header="[=] Matrix"
+                     x:Name="tabMatrix">
                 <Grid>
                     <!-- Use lockDataGridByDefault() method in the MainWindow() constructor 
                          to setup locked/unlocked status of DataGrid's editing capabilities -->
                     <DataGrid x:Name="dgMain"
                               Width="Auto"
                               Height="Auto"
-                              Margin="30, 30, 30, 45" />
+                              Margin="30, 30, 30, 45"
+                              CanUserAddRows="False"
+                              CanUserDeleteRows="False"
+                              CellEditEnding="dgMain_CellEditEnding"
+                              GotFocus="dgMain_GotFocus" />
 
                     <Grid VerticalAlignment="Bottom"
                           HorizontalAlignment="Left"
@@ -55,11 +61,21 @@
 
                     </Grid>
 
+                    <Label x:Name="lblGridChangeConfirmation"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Center"
+                           Margin="5" />
+
                     <Label x:Name="lblRowCount"
                            VerticalAlignment="Bottom"
                            HorizontalAlignment="Right"
                            Margin="5" />
                 </Grid>
+            </TabItem>
+
+            <!-- Tab: Search -->
+            <TabItem Header="[?] Search">
+
             </TabItem>
 
             <!-- Tab: Graphs -->
@@ -72,13 +88,42 @@
                                    Margin="0,0,1000,0" />
                         <Label Content="Laptops/Notebooks:" />
                         <Label x:Name="lblNumberOfLaptops"
-                               Content="00" />
+                               Content="{Binding StatsNotebooksCount}" />
 
                         <Label Content="PCs/Desktops:" />
                         <Label x:Name="lblNumberOfDesktops"
-                               Content="00" />
+                               Content="{Binding StatsDesktopsCount}" />
 
                     </StackPanel>
+                    <Grid Height="500"
+                          VerticalAlignment="Bottom">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <lvc:PieChart LegendLocation="Bottom"
+                                      DataClick="Chart_OnDataClick"
+                                      Hoverable="False"
+                                      DataTooltip="{x:Null}"
+                                      Grid.Column="0"
+                                      Margin="15">
+                            <!--
+                            <lvc:PieChart.Series>
+                                
+                                <lvc:PieSeries Title="Desktops"
+                                               Values="{Binding StatsDesktopsCount}"
+                                               DataLabels="True"
+                                               LabelPoint="{Binding PointLabel}" />
+                                
+                                <lvc:PieSeries Title="Notebooks"
+                                               Values="{Binding StatsNotebooksCount}"
+                                               DataLabels="True"
+                                               LabelPoint="{Binding PointLabel}" />
+                                
+                            </lvc:PieChart.Series>
+                                -->
+                        </lvc:PieChart>
+                    </Grid>
 
                 </Grid>
             </TabItem>

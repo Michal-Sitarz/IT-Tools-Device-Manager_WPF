@@ -201,6 +201,7 @@
   <ItemGroup>
     <Compile Include="Models\Device.cs" />
     <Compile Include="Models\DevicesDbContext.cs" />
+    <Compile Include="Models\Stats.cs" />
     <Compile Include="Models\StatsGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

@@ -9,25 +9,28 @@ namespace ITTools_DeviceManager_WPF.Models
     public static class StatsGenerator
     {
 
-        public static (int desktopsCount, int notebooksCount) CountDeviceTypes(List<Device> devices)
+        public static Stats CountDeviceTypes(List<Device> devices)
         {
-            var desktopsCounter = 0;
-            var notebooksCounter = 0;
-            
-            foreach(Device d in devices)
+            Stats s = new Stats();
+
+            if (devices.Count > 0)
             {
-                if(d.PcType=="Notebook" || d.PcType == "Laptop")
+
+                foreach (Device d in devices)
                 {
-                    notebooksCounter++;
-                }
-                else
-                {
-                    desktopsCounter++;
+                    if (d.PcType.ToLower() == "notebook" || d.PcType.ToLower() == "laptop")
+                    {
+                        s.NumberOfNotebooks++;
+                    }
+                    else
+                    {
+                        s.NumberOfDesktops++;
+                    }
                 }
             }
 
-            return (desktopsCounter, notebooksCounter);
-        }
+            return s;
 
+        }
     }
 }
