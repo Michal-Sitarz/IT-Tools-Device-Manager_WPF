@@ -8,7 +8,7 @@ namespace ITTools_DeviceManager_WPF.Models
 {
     public class Stats
     {
-        public int NumberOfNotebooks { get; set; }
-        public int NumberOfDesktops { get; set; }
+        public double NumberOfNotebooks { get; set; }
+        public double NumberOfDesktops { get; set; }
     }
 }

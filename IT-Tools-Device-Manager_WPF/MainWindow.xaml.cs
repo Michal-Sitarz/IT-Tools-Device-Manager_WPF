@@ -33,7 +33,7 @@ namespace ITTools_DeviceManager_WPF
             {"Unlocked","Icons/64_unlock_orange.png"}
         };
 
-        public SeriesCollection SeriesCollection { get; set; }
+        //public SeriesCollection SeriesCollection { get; set; }
         public Func<ChartPoint, string> PointLabel { get; set; }
         private Stats stats;
 
@@ -53,35 +53,17 @@ namespace ITTools_DeviceManager_WPF
         // populate graphs, when "Graphs" tab is selected
         private void OnGraphTabSelected(object sender, RoutedEventArgs e)
         {
-            Stats stats = StatsGenerator.CountDeviceTypes(dgMain.Items.OfType<Device>().ToList());
+            stats = StatsGenerator.CountDeviceTypes(dgMain.Items.OfType<Device>().ToList());
 
             lblNumberOfDesktops.Content = stats.NumberOfDesktops;
             lblNumberOfLaptops.Content = stats.NumberOfNotebooks;
 
-
+            pieChart_DevicesTypes.Series[0].Values[0] = (double) stats.NumberOfDesktops;
+            pieChart_DevicesTypes.Series[1].Values[0] = (double) stats.NumberOfNotebooks;
+            
             PointLabel = chartPoint =>
                             string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
             
-            // populate Pie Chart series
-            /*
-            SeriesCollection = new SeriesCollection
-                {
-                    new PieSeries
-                    {
-                        Title="Desktops",
-                        Values = new ChartValues<int>{ desktopsCount },
-                        DataLabels = true
-                    },
-                    new PieSeries
-                    {
-                        Title="Notebooks",
-                        Values = new ChartValues<int>{ notebooksCount },
-                        DataLabels = true
-                    }
-
-                };
-                */
-
         }
 
 
